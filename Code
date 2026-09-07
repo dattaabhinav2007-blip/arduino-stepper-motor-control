@@ -1,0 +1,94 @@
+Basic Stepper-Motor
+#include <Stepper.h>
+int stepsPerRevolution=2048;
+int motSpeed=10;
+int dt=500;
+Stepper myStepper(stepsPerRevolution, 8,10,9,11);
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+myStepper.setSpeed(motSpeed);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  myStepper.step(stepsPerRevolution);
+  delay(dt);
+  myStepper.step(-stepsPerRevolution);
+  delay(dt);
+}
+
+
+Stepper-Motor-with-button-control
+#include <Stepper.h>
+int stepsPerRevolution=2048;
+int dt=500;#include<Stepper.h>
+int Steps=2048;
+int potPin=A0;
+int potVal;
+int motSpeed=10;
+Stepper myStepper(Steps, 8,10,9,11);
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+pinMode(potPin,INPUT);
+myStepper.setSpeed(motSpeed);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+potVal=analogRead(potPin);
+Serial.println(potVal);
+motSpeed=(9./1023.)*potVal+1;
+Serial.println(motSpeed);
+myStepper.setSpeed(motSpeed);
+myStepper.step(Steps);
+}
+int buttonPin=2;
+int buttonOld=1;
+int buttonNew;
+int motSpeed=10;
+int motdir=1;
+Stepper myStepper(stepsPerRevolution, 8,10,9,11);
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+pinMode(buttonPin,INPUT);
+digitalWrite(buttonPin,HIGH);
+myStepper.setSpeed(motSpeed);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+ buttonNew=digitalRead(buttonPin);
+ Serial.println(buttonNew);
+ if(buttonOld==1 && buttonNew==0){
+  motdir=motdir*(-1);
+ }
+ myStepper.step(motdir*1);
+}
+
+
+Stepper-Motor-with-Potentio
+#include<Stepper.h>
+int Steps=2048;
+int potPin=A0;
+int potVal;
+int motSpeed=10;
+Stepper myStepper(Steps, 8,10,9,11);
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+pinMode(potPin,INPUT);
+myStepper.setSpeed(motSpeed);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+potVal=analogRead(potPin);
+Serial.println(potVal);
+motSpeed=(9./1023.)*potVal+1;
+Serial.println(motSpeed);
+myStepper.setSpeed(motSpeed);
+myStepper.step(Steps);
+}
